@@ -144,8 +144,9 @@ class PureTones(QWidget):
 
 
 class ToneMethod:
-    def __init__(self):
+    def __init__(self, bendRange=(2.0, 2.0)):
         self.widget = QWidget()
+        self.bendRange = bendRange
 
     def calculateBends(self, notes):
         return [0] * len(notes)
@@ -154,6 +155,28 @@ class ToneMethod:
 class TMKeyRoot(ToneMethod):
     def __init__(self):
         super().__init__()
+
+        self.rootNote = 0
+        self.NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"]
+        self.scale = 0
+        self.SCALE_NAMES = ["Equal Temperament", "Just Intonation"]
+
+        # self.JUST_INTONATION_BENDS = [0, 104, 4, ]
+
+    def initUI(self):
+        pass
+
+    def calculateBends(self, notes):
+        scname = self.SCALE_NAMES[self.scale]
+
+        if scname == "Equal Temperament":
+            return [0] * len(notes)
+        elif scname == "Just Intonation":
+            for n in notes:
+                pass
+        else:
+            print("UNKNOWN SCALE TYPE")
+            return [0] * len(notes)
 
 
 if __name__ == "__main__":
